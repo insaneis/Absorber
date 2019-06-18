@@ -3,7 +3,7 @@ It records all keystrokes including some special keys and send them to gmail.
 
 ### Things you need
 * Windows
-* python 3.7
+* python 3.5
 
 ### Features
 * Send logs each 120 seconds.
