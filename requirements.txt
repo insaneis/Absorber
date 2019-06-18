@@ -1,2 +1,4 @@
 pyinstaller
 keyboard
+pywin32
+pip==19.1.1
