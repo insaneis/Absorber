@@ -7,7 +7,7 @@ It records all keystrokes including some special keys and send them to gmail.
 
 ### Features
 * Send logs each 120 seconds.
-* Send logs when chars > 50.
+* Send logs when chars > 20.
 * Send logs with GMAIL.
 * Multiple Session disabled.
 * Auto Persistence.
