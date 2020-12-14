@@ -64,9 +64,10 @@ def send_mail():
             msg.attach(MIMEText(MESSAGE, 'html'))
             text = msg.as_string()
             try:
-                server = smtplib.SMTP('smtp.gmail.com')
-                server.connect('smtp.gmail.com', '587')
+                server = smtplib.SMTP("smtp.gmail.com",587)
+                server.ehlo()
                 server.starttls()
+                server.ehlo()
                 server.login(FROM, PASS)
                 server.sendmail(FROM, TO, text)
                 lastwindow = ''
