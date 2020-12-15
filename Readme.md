@@ -24,6 +24,7 @@ The use of the Absorber & its resources is **COMPLETE RESPONSIBILITY of the END-
 * Auto Persistence.
 * Some Phishing methods are included.
 * Self-destruct
+* Takes screenshot
 
 
 ## HOW TO INSTALL
