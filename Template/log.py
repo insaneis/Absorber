@@ -2,6 +2,7 @@ from keyboard import on_press, wait
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
+from email.mime.image import MIMEImage
 from email import encoders
 from win32gui import GetWindowText, GetForegroundWindow
 import win32event, win32api, winerror
